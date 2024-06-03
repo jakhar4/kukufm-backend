@@ -97,8 +97,8 @@ exports.filterAudiobooks = async (req, res) => {
   const { author, genre } = req.body;
   try {
       let filter = {};
-      if (author) filter.author = author;
-      if (genre) filter.genre = genre;
+      if (author) filter.author = {$regex:author, $options: 'i'};
+      if (genre) filter.genre = {$regex:genre, $options: 'i'};
       console.log('Filter:', filter); 
       const filteredAudiobooks = await Audiobook.find(filter);
       res.json(filteredAudiobooks);
